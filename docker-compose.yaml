@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: postgres-container
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: pun_generator_user
+      POSTGRES_PASSWORD: pun_generator_password
+      POSTGRES_DB: pun_generator_db
+  
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+
