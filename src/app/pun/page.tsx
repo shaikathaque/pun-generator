@@ -1,3 +1,3 @@
 export default function Pun() {
-    return <h1>Pun Page</h1>
+  return <h1>Pun Page</h1>;
 }
