@@ -1,7 +1,18 @@
 import prisma from '@/lib/prisma';
 
 export default async function Home() {
-  const puns = await prisma.pun.findMany();
+
+  const getPuns = async () => {
+    try {
+      return await prisma.pun.findMany();
+    } catch(err) {
+      console.log(err);
+      return []
+    }
+    
+  }
+
+  const puns = await getPuns();
 
   return (
     <main>
