@@ -1,24 +1,16 @@
-const puns = [
-  'A',
-  'B',
-  "C",
-]
+import prisma from "@/lib/prisma";
 
-export default function Home() {
-
-  function handleClick() {
-    console.log('Like button clicked')
-  }
+export default async function Home() {
+  const puns = await prisma.pun.findMany()
 
   return (
     <main>
-
       <h1 className="text-3xl font-bold underline">Welcome to Pun Generator!</h1>
       <div>
         {
           puns.map((pun, i) => {
             return (
-              <div key={i}>{pun}</div>
+              <div key={i}>{pun.content}</div>
             )
           })
         }
