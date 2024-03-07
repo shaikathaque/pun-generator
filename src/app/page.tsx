@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
 
@@ -23,7 +24,9 @@ export default async function Home() {
           return <div key={i}>{pun.content}</div>;
         })}
       </div>
-      <Link href="/pun">Pun</Link>
+      <Link href="/pun">
+        <Button>Pun</Button>
+      </Link>
     </main>
   );
 }
