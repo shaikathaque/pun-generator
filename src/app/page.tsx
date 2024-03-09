@@ -1,17 +1,8 @@
 import { Button } from '@/components/ui/button';
-import prisma from '@/lib/prisma';
 import Link from 'next/link';
+import { getPuns } from '@/app/actions';
 
 export default async function Home() {
-  const getPuns = async () => {
-    try {
-      return await prisma.pun.findMany();
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-  };
-
   const puns = await getPuns();
   return (
     <main>

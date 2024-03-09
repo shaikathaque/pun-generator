@@ -2,6 +2,7 @@
 
 import prisma from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import * as Sentry from '@sentry/nextjs';
 
 export const createPun = async (formData: FormData) => {
   try {
@@ -15,4 +16,14 @@ export const createPun = async (formData: FormData) => {
     throw err;
   }
   redirect('/');
+};
+
+export const getPuns = async () => {
+  try {
+    return await prisma.pun.findMany();
+  } catch (err) {
+    console.error('Error: getPuns', err);
+    Sentry.captureException(err);
+    return [];
+  }
 };
