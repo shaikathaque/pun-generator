@@ -12,8 +12,8 @@ export const createPun = async (formData: FormData) => {
       },
     });
   } catch (err) {
+    Sentry.captureException(err);
     console.log(err);
-    throw err;
   }
   redirect('/');
 };
