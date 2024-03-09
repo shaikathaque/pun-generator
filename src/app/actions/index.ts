@@ -3,6 +3,7 @@
 import prisma from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import * as Sentry from '@sentry/nextjs';
+import { revalidatePath } from 'next/cache';
 
 export const createPun = async (formData: FormData) => {
   try {
@@ -15,6 +16,8 @@ export const createPun = async (formData: FormData) => {
     Sentry.captureException(err);
     console.log(err);
   }
+
+  revalidatePath('/');
   redirect('/');
 };
 
