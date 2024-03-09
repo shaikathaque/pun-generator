@@ -1,8 +1,7 @@
-'use client'; // Error components must be Client Components
+'use client';
 
-import { useEffect } from 'react';
-
-// References from: https://nextjs.org/docs/app/building-your-application/routing/error-handling
+import * as Sentry from "@sentry/nextjs";
+import { useEffect } from "react";
 
 export default function Error({
   error,
@@ -13,7 +12,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log to an error reporting service like Sentry
-    console.error(error);
+    Sentry.captureException(error);
   }, [error]);
 
   return (

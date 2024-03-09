@@ -1,9 +1,8 @@
-'use client'; // Error components must be Client Components
+'use client';
 
-/**
- * Referenced from: https://nextjs.org/docs/app/building-your-application/routing/error-handling
- * global-error.tsx is only enabled in production. In development, our error overlay will show instead.
- */
+import * as Sentry from "@sentry/nextjs";
+import Error from "next/error";
+import { useEffect } from "react";
 
 export default function GlobalError({
   error,
@@ -12,12 +11,18 @@ export default function GlobalError({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  return (
-    <html>
-      <body>
-        <h2>Global Error Page</h2>
-        <button onClick={() => reset()}>Try again</button>
-      </body>
-    </html>
-  );
+
+    useEffect(() => {
+        Sentry.captureException(error);
+    }, [error]);
+
+
+    return (
+        <html>
+        <body>
+            <h2>Global Error Page</h2>
+            <button onClick={() => reset()}>Try again</button>
+        </body>
+        </html>
+    );
 }
