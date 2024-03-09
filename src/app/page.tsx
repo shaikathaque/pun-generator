@@ -25,7 +25,7 @@ export default async function Home() {
         })}
       </div>
       <Link href="/pun">
-        <Button>Pun</Button>
+        <Button>Create Pun</Button>
       </Link>
     </main>
   );
