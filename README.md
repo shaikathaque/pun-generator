@@ -30,4 +30,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 
 Changes in the main branch are automatically deployred to Vercel at https://pun-generator-mu.vercel.app/
 
-
+### TODO:
+- Setup error boundary
+- Logging / Error reporting - Sentry
+- Observability (OpenTelemetry)
+- Analytics (useReportWebVitals / Vercel Analytics / Google Analytics)
