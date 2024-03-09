@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import prisma from '@/lib/prisma';
-import { createPun } from '@/app/actions';
+import { createPun } from '@/app/actions/index';
 
 const formSchema = z.object({
   content: z.string().min(2, {

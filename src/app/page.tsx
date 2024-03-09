@@ -13,7 +13,6 @@ export default async function Home() {
   };
 
   const puns = await getPuns();
-
   return (
     <main>
       <h1 className="text-3xl font-bold underline">
