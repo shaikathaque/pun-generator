@@ -15,6 +15,7 @@
     "e2e:report": "npx playwright show-report"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.0.0-beta.33",
     "@hookform/resolvers": "^3.3.4",
     "@prisma/client": "^5.10.2",
     "@radix-ui/react-label": "^2.0.2",
