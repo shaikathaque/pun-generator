@@ -66,12 +66,11 @@ export default function Pun() {
                   </FormItem>
                 )}
               />
+              <Button type="submit">Submit Pun</Button>
             </form>
           </Form>
         </CardContent>
-        <CardFooter>
-          <Button type="submit">Submit Pun</Button>
-        </CardFooter>
+        <CardFooter></CardFooter>
       </Card>
     </div>
   );
