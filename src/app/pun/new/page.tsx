@@ -14,8 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import prisma from '@/lib/prisma';
 import { createPun } from '@/app/actions/index';
 import {
   Card,
@@ -25,10 +23,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { Textarea } from '@/components/ui/textarea';
 
-const createPunFormSchema = z.object({
-  content: z.string().min(2, {
-    message: 'Pun must be at least 2 characters long',
+// TODO: move to common location
+export const createPunFormSchema = z.object({
+  content: z.string().min(3, {
+    message: 'Pun must be at least 3 characters long',
   }),
 });
 
@@ -40,18 +40,22 @@ export default function Pun() {
     },
   });
 
+  async function onSubmit(values: z.infer<typeof createPunFormSchema>) {
+    await createPun(values);
+  }
+
   return (
     <div className="flex flex-col items-center py-10">
-      <Card className="w-[350px]">
-        <CardHeader>
-          <CardTitle>Submit a Pun</CardTitle>
-          <CardDescription>
-            Submit a pun consisting of a question and a punchline.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...createPunForm}>
-            <form action={createPun}>
+      <Form {...createPunForm}>
+        <form onSubmit={createPunForm.handleSubmit(onSubmit)}>
+          <Card className="min-w-fit">
+            <CardHeader>
+              <CardTitle>Submit a Pun</CardTitle>
+              <CardDescription>
+                Submit a pun consisting of a question and a punchline.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <FormField
                 control={createPunForm.control}
                 name="content"
@@ -59,19 +63,22 @@ export default function Pun() {
                   <FormItem>
                     <FormLabel htmlFor="content">Content</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your pun here" {...field} />
+                      <Textarea placeholder="Enter your pun here" {...field} />
                     </FormControl>
                     <FormDescription>Enter your pun</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button type="submit">Submit Pun</Button>
-            </form>
-          </Form>
-        </CardContent>
-        <CardFooter></CardFooter>
-      </Card>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" type="submit">
+                Submit Pun
+              </Button>
+            </CardFooter>
+          </Card>
+        </form>
+      </Form>
     </div>
   );
 }

@@ -4,12 +4,16 @@ import prisma from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import * as Sentry from '@sentry/nextjs';
 import { revalidatePath } from 'next/cache';
+import { createPunFormSchema } from '../pun/new/page';
+import { z } from 'zod';
 
-export const createPun = async (formData: FormData) => {
+export const createPun = async (
+  formData: z.infer<typeof createPunFormSchema>,
+) => {
   try {
     await prisma.pun.create({
       data: {
-        content: formData.get('content') as string,
+        content: formData.content,
       },
     });
   } catch (err) {

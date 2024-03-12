@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Pun from '@/app/pun/page';
+import Pun from '@/app/pun/new/page';
 
 test('Page', () => {
     render(<Pun />);
