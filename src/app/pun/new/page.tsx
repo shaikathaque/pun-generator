@@ -25,14 +25,13 @@ import {
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 
-// TODO: move to common location
-export const createPunFormSchema = z.object({
+const createPunFormSchema = z.object({
   content: z.string().min(3, {
     message: 'Pun must be at least 3 characters long',
   }),
 });
 
-export default function Pun() {
+export default function CreatePunPage() {
   const createPunForm = useForm<z.infer<typeof createPunFormSchema>>({
     resolver: zodResolver(createPunFormSchema),
     defaultValues: {
