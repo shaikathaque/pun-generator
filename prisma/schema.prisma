@@ -19,5 +19,6 @@ model Pun {
   updatedAt DateTime @updatedAt
   content String
   userId String
+  username String?
 }
 
