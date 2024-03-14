@@ -10,7 +10,7 @@ export default async function Home() {
     <div className="flex flex-col items-center space-y-10 py-10">
       <Link href="/pun/new">
         <Button>
-          <Plus className="2-4 mr-2 h-4" />
+          <Plus className="mr-2 h-4 w-4" />
           Submit a Pun
         </Button>
       </Link>

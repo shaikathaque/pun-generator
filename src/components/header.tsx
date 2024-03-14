@@ -1,8 +1,10 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getCurrentUsername } from '@/app/actions';
 
-export default function Header() {
+export default async function Header() {
+  const username = await getCurrentUsername();
   return (
     <nav className="flex h-16 items-center border-b-2 px-5">
       {/* Top left branding */}
@@ -12,7 +14,13 @@ export default function Header() {
       </Link>
 
       {/* Top right user nav */}
-      <div className="ml-auto items-center">
+      <div className="ml-auto flex flex-row items-center lg:space-x-6">
+        <Link
+          href={`/user/${username}/puns`}
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        >
+          <p>My Puns</p>
+        </Link>
         <SignedOut>
           <SignInButton />
         </SignedOut>

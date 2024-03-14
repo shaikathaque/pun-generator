@@ -65,3 +65,27 @@ export const getPunsByUsername = async (username: string) => {
     return [];
   }
 };
+
+export const getCurrentUsername = async () => {
+  try {
+    const { userId } = await auth();
+
+    // TODO: redirect to login page
+    if (!userId) {
+      throw new Error('User not logged in');
+    }
+
+    const user = await clerkClient.users.getUser(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (!user.username) {
+      throw new Error('User does not have a username');
+    }
+    return user.username;
+  } catch (err) {
+    Sentry.captureException(err);
+    console.log(err);
+  }
+};

@@ -12,8 +12,8 @@ export default async function UserPuns({ params }: Props) {
   const puns = await getPunsByUsername(username);
 
   return (
-    <div className="m-10">
-      <h1>User {username} Pun Page</h1>
+    <div className="flex flex-col items-center space-y-10 py-10">
+      <h1 className="text-lg font-semibold">Puns by {username}</h1>
       {puns.map((pun, index) => {
         return <Pun key={index} {...pun} />;
       })}
