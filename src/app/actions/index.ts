@@ -15,18 +15,21 @@ export const createPun = async (formData: CreatePunData) => {
     // if not, redirect to login page
     const { userId } = await auth();
 
+    if (!userId) {
+      throw new Error('User not logged in');
+    }
+
     await prisma.pun.create({
       data: {
         content: formData.content,
         userId: userId,
       },
     });
+    revalidatePath('/');
   } catch (err) {
     Sentry.captureException(err);
     console.log(err);
   }
-
-  revalidatePath('/');
   redirect('/');
 };
 
