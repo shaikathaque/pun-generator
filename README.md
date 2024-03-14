@@ -30,6 +30,27 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 
 Changes in the main branch are automatically deployred to Vercel at https://pun-generator-mu.vercel.app/
 
+
+## Prisma
+
+When a schema change is made, the following must be done:
+
+1. Generate new prisma client in draft mode to preview the migration
+```bash
+npx prisma migrate dev --name name-of-migration --create-only
+```
+
+2. Save and apply the migration. This will also generate an updated prisma client
+```bash
+npx prisma migrate dev
+```
+
+In production, the `vercel-build` script takes care of the above steps.
+`"vercel-build": "prisma generate && prisma migrate deploy && next build"`
+
+To evolve schema without downtime, use the expand and contract pattern:
+https://www.prisma.io/docs/orm/prisma-migrate/workflows/customizing-migrations#example-use-the-expand-and-contract-pattern-to-evolve-the-schema-without-downtime
+
 ### TODO:
 - Observability (OpenTelemetry)
 - Analytics (useReportWebVitals / Vercel Analytics / Google Analytics)

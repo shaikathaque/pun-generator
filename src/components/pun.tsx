@@ -14,7 +14,7 @@ export default function Pun({ content, id }: Pun) {
     <Card className="w-[350px]">
       <CardHeader></CardHeader>
       <CardContent>
-        <p>{content}</p>
+        <p className="whitespace-pre-line">{content}</p>
       </CardContent>
       <CardFooter></CardFooter>
     </Card>
