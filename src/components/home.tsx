@@ -6,7 +6,6 @@ import { Plus } from 'lucide-react';
 
 export default async function Home() {
   const puns = await getPuns();
-  console.log(9, puns);
   return (
     <div className="flex flex-col items-center space-y-10 py-10">
       <Link href="/pun/new">

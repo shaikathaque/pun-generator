@@ -45,6 +45,8 @@ export const createPun = async (formData: CreatePunData) => {
 
 export const getPuns = async () => {
   try {
+    const { userId } = await auth();
+
     return await prisma.pun.findMany({
       include: {
         _count: {
@@ -52,6 +54,15 @@ export const getPuns = async () => {
             punReactions: { where: { reaction: Reaction.LIKE } },
           },
         },
+        // if user logged in, include their existing reaction
+        ...(userId && {
+          punReactions: {
+            take: 1,
+            where: {
+              userId,
+            },
+          },
+        }),
       },
     });
   } catch (err) {

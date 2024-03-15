@@ -1,4 +1,4 @@
-import { Pun } from '@prisma/client';
+import { Pun, PunReaction } from '@prisma/client';
 import {
   Card,
   CardContent,
@@ -13,9 +13,16 @@ type PunProps = Pun & {
   _count: {
     punReactions: number;
   };
+  punReactions: PunReaction[];
 };
 
-export default function Pun({ content, username, id, _count }: PunProps) {
+export default async function Pun({
+  content,
+  username,
+  id,
+  _count,
+  punReactions,
+}: PunProps) {
   return (
     <Card className="w-[350px]">
       <CardHeader></CardHeader>
@@ -29,7 +36,11 @@ export default function Pun({ content, username, id, _count }: PunProps) {
             <Link href={`/user/${username}/puns`}>{username}</Link>
           </div>
           <div className="ml-auto mt-3 flex flex-row items-center gap-2">
-            <PunReactions punId={id} likeCount={_count.punReactions} />
+            <PunReactions
+              punId={id}
+              likeCount={_count.punReactions}
+              userReaction={punReactions.length > 0 ? punReactions[0] : null}
+            />
           </div>
         </div>
       </CardFooter>

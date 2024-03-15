@@ -2,20 +2,36 @@
 
 import { handlePunReaction } from '@/app/actions';
 import { ThumbsDown, ThumbsUp } from 'lucide-react';
-import { Pun, Reaction } from '@prisma/client';
-import { useState } from 'react';
+import { Pun, PunReaction, Reaction } from '@prisma/client';
+import { useEffect, useState } from 'react';
 import { Toggle } from './ui/toggle';
 
 type Props = {
   punId: Pun['id'];
   likeCount: number;
+  userReaction: PunReaction | null;
 };
 
-export default function PunReactions({ punId, likeCount }: Props) {
-  //   const [likeCount, setLikeCount] = useState(0);
-  console.log(16, likeCount);
+export default function PunReactions({
+  punId,
+  likeCount,
+  userReaction,
+}: Props) {
+  console.log(16, userReaction);
+  const [likeToggle, setLikeToggle] = useState(false);
+  const [dislikeToggle, setDislikeToggle] = useState(false);
+
+  useEffect(() => {
+    if (userReaction) {
+      if (userReaction.reaction === Reaction.LIKE) {
+        setLikeToggle(true);
+      } else if (userReaction.reaction === Reaction.DISLIKE) {
+        setDislikeToggle(true);
+      }
+    }
+  }, [userReaction]);
+
   const handleLike = async () => {
-    // setLikeCount(likeCount + 1)
     const result = await handlePunReaction(punId, Reaction.LIKE);
   };
 
@@ -25,7 +41,7 @@ export default function PunReactions({ punId, likeCount }: Props) {
 
   return (
     <>
-      <Toggle defaultPressed={false} onClick={handleLike}>
+      <Toggle pressed={likeToggle} onClick={handleLike}>
         <ThumbsUp
           className="mr-2 h-4 w-4"
           aria-pressed={true}
@@ -33,7 +49,7 @@ export default function PunReactions({ punId, likeCount }: Props) {
         />
         <p>{likeCount}</p>
       </Toggle>
-      <Toggle defaultPressed={false} onClick={handleDislike}>
+      <Toggle pressed={dislikeToggle} onClick={handleDislike}>
         <ThumbsDown className="h-4 w-4" />
       </Toggle>
     </>
