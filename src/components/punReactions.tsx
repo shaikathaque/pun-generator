@@ -8,11 +8,12 @@ import { Toggle } from './ui/toggle';
 
 type Props = {
   punId: Pun['id'];
+  likeCount: number;
 };
 
-export default function PunReactions({ punId }: Props) {
-  const [likeCount, setLikeCount] = useState(0);
-
+export default function PunReactions({ punId, likeCount }: Props) {
+  //   const [likeCount, setLikeCount] = useState(0);
+  console.log(16, likeCount);
   const handleLike = async () => {
     // setLikeCount(likeCount + 1)
     const result = await handlePunReaction(punId, Reaction.LIKE);

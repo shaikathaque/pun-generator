@@ -45,7 +45,15 @@ export const createPun = async (formData: CreatePunData) => {
 
 export const getPuns = async () => {
   try {
-    return await prisma.pun.findMany();
+    return await prisma.pun.findMany({
+      include: {
+        _count: {
+          select: {
+            punReactions: { where: { reaction: Reaction.LIKE } },
+          },
+        },
+      },
+    });
   } catch (err) {
     console.error('Error: getPuns', err);
     Sentry.captureException(err);

@@ -2,18 +2,20 @@ import { Pun } from '@prisma/client';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { CircleUserRound, ThumbsDown, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from './ui/button';
-import { handlePunReaction } from '@/app/actions';
 import PunReactions from './punReactions';
 
-export default function Pun({ content, username, createdAt, id }: Pun) {
+type PunProps = Pun & {
+  _count: {
+    punReactions: number;
+  };
+};
+
+export default function Pun({ content, username, id, _count }: PunProps) {
   return (
     <Card className="w-[350px]">
       <CardHeader></CardHeader>
@@ -27,7 +29,7 @@ export default function Pun({ content, username, createdAt, id }: Pun) {
             <Link href={`/user/${username}/puns`}>{username}</Link>
           </div>
           <div className="ml-auto mt-3 flex flex-row items-center gap-2">
-            <PunReactions punId={id} />
+            <PunReactions punId={id} likeCount={_count.punReactions} />
           </div>
         </div>
       </CardFooter>
