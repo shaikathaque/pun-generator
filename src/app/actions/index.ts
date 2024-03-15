@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import * as Sentry from '@sentry/nextjs';
 import { revalidatePath } from 'next/cache';
 import { auth, clerkClient } from '@clerk/nextjs/server';
+import { Pun, Reaction } from '@prisma/client';
 
 type CreatePunData = {
   content: string;
@@ -84,6 +85,39 @@ export const getCurrentUsername = async () => {
       throw new Error('User does not have a username');
     }
     return user.username;
+  } catch (err) {
+    Sentry.captureException(err);
+  }
+};
+
+export const handlePunReaction = async (
+  punId: Pun['id'],
+  reaction: Reaction,
+) => {
+  try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      throw new Error('User not logged in');
+    }
+
+    // This will create a new reaction if it doesn't exist, or update the existing one
+    await prisma.punReaction.upsert({
+      where: {
+        punId_userId: {
+          punId,
+          userId,
+        },
+      },
+      update: {
+        reaction,
+      },
+      create: {
+        punId,
+        userId,
+        reaction,
+      },
+    });
   } catch (err) {
     Sentry.captureException(err);
     console.log(err);

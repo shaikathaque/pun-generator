@@ -20,5 +20,21 @@ model Pun {
   content String
   userId String
   username String?
+  punReactions PunReaction[]
+}
+
+model PunReaction {
+  reaction Reaction
+  userId String
+
+  punId Int
+  pun Pun @relation(fields: [punId], references: [id])
+
+  @@unique([punId, userId])
+}
+
+enum Reaction {
+  LIKE
+  DISLIKE
 }
 

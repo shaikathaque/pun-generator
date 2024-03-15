@@ -9,8 +9,11 @@ import {
 } from '@/components/ui/card';
 import { CircleUserRound, ThumbsDown, ThumbsUp } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from './ui/button';
+import { handlePunReaction } from '@/app/actions';
+import PunReactions from './punReactions';
 
-export default function Pun({ content, username, createdAt }: Pun) {
+export default function Pun({ content, username, createdAt, id }: Pun) {
   return (
     <Card className="w-[350px]">
       <CardHeader></CardHeader>
@@ -23,9 +26,8 @@ export default function Pun({ content, username, createdAt }: Pun) {
             <CircleUserRound className="mr-2 h-4 w-4" />
             <Link href={`/user/${username}/puns`}>{username}</Link>
           </div>
-          <div className="ml-auto flex flex-row items-center">
-            {/* <ThumbsUp className="mr-2 h-4 w-4" />
-            <p>0</p> */}
+          <div className="ml-auto mt-3 flex flex-row items-center gap-2">
+            <PunReactions punId={id} />
           </div>
         </div>
       </CardFooter>
