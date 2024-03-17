@@ -74,9 +74,27 @@ export const getPuns = async () => {
 
 export const getPunsByUsername = async (username: string) => {
   try {
+    const { userId } = await auth();
+
     return await prisma.pun.findMany({
       where: {
         username: username,
+      },
+      include: {
+        _count: {
+          select: {
+            punReactions: { where: { reaction: Reaction.LIKE } },
+          },
+        },
+        // if user logged in, include their existing reaction
+        ...(userId && {
+          punReactions: {
+            take: 1,
+            where: {
+              userId,
+            },
+          },
+        }),
       },
     });
   } catch (err) {
