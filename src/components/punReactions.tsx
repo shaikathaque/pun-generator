@@ -43,6 +43,7 @@ export default function PunReactions({
     }
   }, [reaction]);
 
+  // TODO: undo state if network request fails
   const handleLike = async () => {
     // was previously liked, remove like
     if (reaction === Reaction.LIKE) {
@@ -66,6 +67,7 @@ export default function PunReactions({
     await updatePunReaction(punId, Reaction.LIKE);
   };
 
+  // TODO: undo state if network request fails
   const handleDislike = async () => {
     // was previously disliked, set to null
     if (reaction === Reaction.DISLIKE) {
