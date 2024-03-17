@@ -109,7 +109,7 @@ export const getCurrentUsername = async () => {
   }
 };
 
-export const handlePunReaction = async (
+export const updatePunReaction = async (
   punId: Pun['id'],
   reaction: Reaction,
 ) => {
@@ -135,6 +135,29 @@ export const handlePunReaction = async (
         punId,
         userId,
         reaction,
+      },
+    });
+  } catch (err) {
+    Sentry.captureException(err);
+    console.log(err);
+  }
+};
+
+export const deletePunReaction = async (punId: Pun['id']) => {
+  try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      throw new Error('User not logged in');
+    }
+
+    // This will create a new reaction if it doesn't exist, or update the existing one
+    await prisma.punReaction.delete({
+      where: {
+        punId_userId: {
+          punId,
+          userId,
+        },
       },
     });
   } catch (err) {
