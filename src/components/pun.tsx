@@ -39,7 +39,9 @@ export default async function Pun({
             <PunReactions
               punId={id}
               likeCount={_count.punReactions}
-              userReaction={punReactions.length > 0 ? punReactions[0] : null}
+              userReaction={
+                punReactions && punReactions.length > 0 ? punReactions[0] : null
+              }
             />
           </div>
         </div>

@@ -5,6 +5,8 @@ import { ThumbsDown, ThumbsUp } from 'lucide-react';
 import { Pun, PunReaction, Reaction } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { Toggle } from './ui/toggle';
+import { useClerk } from '@clerk/clerk-react';
+import { useAuth } from '@clerk/nextjs';
 
 type Props = {
   punId: Pun['id'];
@@ -21,6 +23,10 @@ export default function PunReactions({
   const [likeToggle, setLikeToggle] = useState(false);
   const [dislikeToggle, setDislikeToggle] = useState(false);
   const [numLikes, setNumLikes] = useState(likeCount);
+
+  // Get the userId from auth() -- if null, the user is not logged in
+  const { openSignUp } = useClerk();
+  const { isSignedIn } = useAuth();
 
   // initialize the reaction based on data fetched from the server
   useEffect(() => {
@@ -45,6 +51,11 @@ export default function PunReactions({
 
   // TODO: undo state if network request fails
   const handleLike = async () => {
+    if (!isSignedIn) {
+      openSignUp();
+      return;
+    }
+
     // was previously liked, remove like
     if (reaction === Reaction.LIKE) {
       setReaction(null);
@@ -69,6 +80,11 @@ export default function PunReactions({
 
   // TODO: undo state if network request fails
   const handleDislike = async () => {
+    if (!isSignedIn) {
+      openSignUp();
+      return;
+    }
+
     // was previously disliked, set to null
     if (reaction === Reaction.DISLIKE) {
       setReaction(null);
