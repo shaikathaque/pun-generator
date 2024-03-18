@@ -1,17 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Pun Generator
+Pun Generator is a web app built using React, Next.js, TypeScript, and PostgreSQL, hosted on Vercel. It uses the Next.js App Router.
 
-It uses the new App Router.
+The latest changes from the main branch are auto deployed to https://pungeneratorapp.com
 
+It is still in development, so features may be incomplete. Head over to the [Roadmap](#roadmap) section to check out upcoming features.
 
-## Local Quickstart
+## Running Locally
 
+### Pre-requisites
+Before running the app locally, you will need the following set up:
+1. Install Docker on your machine to run docker-compose.
+1. Set up a `.env` file. See `.env.sample` to see what environment variables are required.
+1. Add your Postgres url to the `.env` file.
+1. Set up a `clerk` development instance and add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` to the `.env` file to set up authentication. Instructions to set up clerk authentication: https://clerk.com/docs/quickstarts/setup-clerk
+
+### Run Development Server
 Install dependencies
 
 ```bash
 npm install
 ```
 
-Start up local database (requires docker)
+Start up local PostgreSQL database (requires docker)
 
 ```bash
 docker-compose up
@@ -24,11 +34,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser.
-
-
-## Deployment
-
-Changes in the main branch are automatically deployred to Vercel at https://pun-generator-mu.vercel.app/
 
 
 ## Prisma
@@ -51,7 +56,15 @@ In production, the `vercel-build` script takes care of the above steps.
 To evolve schema without downtime, use the expand and contract pattern:
 https://www.prisma.io/docs/orm/prisma-migrate/workflows/customizing-migrations#example-use-the-expand-and-contract-pattern-to-evolve-the-schema-without-downtime
 
-### TODO:
+## Roadmap:
+
+### Priority
+- Refactor components to optimize dynamic and static builds.
+- Add pagination for viewing multiple Puns.
+- Finish writing playwright tests.
+- Finish writing Unit tests.
+
+### Nice to have
 - Observability (OpenTelemetry)
 - Analytics (useReportWebVitals / Vercel Analytics / Google Analytics)
 - Add Sentry to server actions
