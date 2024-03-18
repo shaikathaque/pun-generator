@@ -26,8 +26,9 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 
 const createPunFormSchema = z.object({
-  content: z.string().min(3, {
-    message: 'Pun must be at least 3 characters long',
+  question: z.string().optional(),
+  punchline: z.string().min(1, {
+    message: 'Punchline must have at least 1 character.',
   }),
 });
 
@@ -35,12 +36,20 @@ export default function CreatePunPage() {
   const createPunForm = useForm<z.infer<typeof createPunFormSchema>>({
     resolver: zodResolver(createPunFormSchema),
     defaultValues: {
-      content: '',
+      question: '',
+      punchline: '',
     },
   });
 
-  async function onSubmit(values: z.infer<typeof createPunFormSchema>) {
-    await createPun(values);
+  async function onSubmit({
+    question,
+    punchline,
+  }: z.infer<typeof createPunFormSchema>) {
+    const formData = {
+      question: question ? question : null,
+      punchline: punchline,
+    };
+    await createPun(formData);
   }
 
   return (
@@ -51,20 +60,51 @@ export default function CreatePunPage() {
             <CardHeader>
               <CardTitle>Submit a Pun</CardTitle>
               <CardDescription>
-                Submit a pun consisting of a question and a punchline.
+                Share your best puns with us! You can either submit a
+                question/setup and a punchline or just the punchline.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-10">
               <FormField
                 control={createPunForm.control}
-                name="content"
+                name="question"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel htmlFor="content">Content</FormLabel>
+                    <FormLabel htmlFor="question">
+                      Question/Setup (Optional)
+                    </FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Enter your pun here" {...field} />
+                      <Textarea
+                        placeholder="e.g. How many software engineers does it take to change a light bulb?"
+                        {...field}
+                      />
                     </FormControl>
-                    <FormDescription>Enter your pun</FormDescription>
+                    <FormDescription>
+                      Setup up your pun for a funny punchline. This is usually
+                      in the form of a question, but it is not always required.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={createPunForm.control}
+                name="punchline"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor="punchline">Punchline</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="None. That's a hardware problem."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Enter your witty punchline! This will initially be hidden
+                      to viewers. They can reveal it after trying to guess the
+                      answer!
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

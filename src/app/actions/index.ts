@@ -8,7 +8,8 @@ import { auth, clerkClient } from '@clerk/nextjs/server';
 import { Pun, Reaction } from '@prisma/client';
 
 type CreatePunData = {
-  content: string;
+  question: Pun['question'];
+  punchline: Pun['punchline'];
 };
 export const createPun = async (formData: CreatePunData) => {
   try {
@@ -30,7 +31,8 @@ export const createPun = async (formData: CreatePunData) => {
 
     await prisma.pun.create({
       data: {
-        content: formData.content,
+        ...(formData.question && { question: formData.question }),
+        punchline: formData.punchline,
         userId,
         username: user.username,
       },
