@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { getPuns } from '@/app/actions';
-import Pun from '@/components/pun';
+import PunCard from '@/components/punCard';
 import { Plus } from 'lucide-react';
 
 export default async function Home() {
@@ -16,7 +16,7 @@ export default async function Home() {
       </Link>
       <div className="flex flex-col gap-y-5">
         {puns.map((pun, i) => {
-          return <Pun key={i} {...pun} />;
+          return <PunCard key={i} {...pun} />;
         })}
       </div>
     </div>

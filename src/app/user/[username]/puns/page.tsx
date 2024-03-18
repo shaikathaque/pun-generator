@@ -1,5 +1,5 @@
 import { getPunsByUsername } from '@/app/actions';
-import Pun from '@/components/pun';
+import PunCard from '@/components/punCard';
 
 type Props = {
   params: {
@@ -15,7 +15,7 @@ export default async function UserPuns({ params }: Props) {
     <div className="flex flex-col items-center space-y-10 py-10">
       <h1 className="text-lg font-semibold">Puns by {username}</h1>
       {puns.map((pun, index) => {
-        return <Pun key={index} {...pun} />;
+        return <PunCard key={index} {...pun} />;
       })}
     </div>
   );
