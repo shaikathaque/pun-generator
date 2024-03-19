@@ -10,7 +10,7 @@ export default async function Header() {
     <nav className="flex h-16 items-center border-b-2 px-5">
       {/* Top left branding */}
       <Link href="/" className="flex flex-row items-center gap-3">
-        <Image alt="app logo" src={'/app_logo.jpg'} width={40} height={40} />
+        <Image alt="app logo" src={'/app_logo.png'} width={40} height={40} />
         <h1 className="font-semibold">Pun Generator</h1>
       </Link>
 
