@@ -2,6 +2,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getCurrentUsername } from '@/app/actions';
+import { ThemeToggle } from './themeToggle';
 
 export default async function Header() {
   const username = await getCurrentUsername();
@@ -21,6 +22,7 @@ export default async function Header() {
         >
           <p>My Puns</p>
         </Link>
+        <ThemeToggle />
         <SignedOut>
           <SignInButton />
         </SignedOut>

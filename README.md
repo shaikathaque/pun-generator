@@ -59,8 +59,11 @@ https://www.prisma.io/docs/orm/prisma-migrate/workflows/customizing-migrations#e
 ## Roadmap:
 
 ### Priority
+- Allow users to delete their own puns.
+- Sorting and filtering by: random, top, newest.
+- Pagination
+- Profanity Filter
 - Refactor components to optimize dynamic and static builds.
-- Add pagination for viewing multiple Puns.
 - Finish writing playwright tests.
 - Finish writing Unit tests.
 
