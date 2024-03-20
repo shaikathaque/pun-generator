@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getCurrentUsername } from '@/app/actions';
 import { ThemeToggle } from './themeToggle';
+import { Button } from './ui/button';
+import MainNav from './mainNav';
 
 export default async function Header() {
   const username = await getCurrentUsername();
@@ -15,21 +17,7 @@ export default async function Header() {
       </Link>
 
       {/* Top right user nav */}
-      <div className="ml-auto flex flex-row items-center lg:space-x-6">
-        <Link
-          href={`/user/${username}/puns`}
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          <p>My Puns</p>
-        </Link>
-        <ThemeToggle />
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </div>
+      <MainNav />
     </nav>
   );
 }
