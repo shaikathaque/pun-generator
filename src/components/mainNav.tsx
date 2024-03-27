@@ -7,7 +7,7 @@ import { Button } from './ui/button';
 export default async function MainNav() {
   const username = await getCurrentUsername();
   return (
-    <div className="ml-auto flex flex-row items-center space-x-6">
+    <div className="ml-auto flex-row items-center space-x-6 hidden md:flex">
       <Link
         href={`/user/${username}/puns`}
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"

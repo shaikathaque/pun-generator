@@ -5,6 +5,7 @@ import { getCurrentUsername } from '@/app/actions';
 import { ThemeToggle } from './themeToggle';
 import { Button } from './ui/button';
 import MainNav from './mainNav';
+import MobileNav from './mobileNav';
 
 export default async function Header() {
   const username = await getCurrentUsername();
@@ -18,6 +19,7 @@ export default async function Header() {
 
       {/* Top right user nav */}
       <MainNav />
+      <MobileNav />
     </nav>
   );
 }
