@@ -106,7 +106,7 @@ export const getPunsByUsername = async (username: string) => {
   }
 };
 
-export const getCurrentUsername = async () => {
+export const getCurrentUser = async () => {
   try {
     const { userId } = await auth();
 
@@ -119,11 +119,7 @@ export const getCurrentUsername = async () => {
     if (!user) {
       throw new Error('User not found');
     }
-
-    if (!user.username) {
-      throw new Error('User does not have a username');
-    }
-    return user.username;
+    return user;
   } catch (err) {
     Sentry.captureException(err);
   }

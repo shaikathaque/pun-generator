@@ -1,19 +1,24 @@
 import Link from 'next/link';
 import { ThemeToggle } from './themeToggle';
-import { getCurrentUsername } from '@/app/actions';
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import { Button } from './ui/button';
+import { User } from '@clerk/nextjs/server';
 
-export default async function MainNav() {
-  const username = await getCurrentUsername();
+type Props = {
+  user?: User;
+};
+export default async function MainNav({ user }: Props) {
   return (
-    <div className="ml-auto flex-row items-center space-x-6 hidden md:flex">
-      <Link
-        href={`/user/${username}/puns`}
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        <p>My Puns</p>
-      </Link>
+    <div className="ml-auto hidden flex-row items-center space-x-6 md:flex">
+      {user && (
+        <Link
+          href={`/user/${user.username}/puns`}
+          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+        >
+          <p>My Puns</p>
+        </Link>
+      )}
+
       <ThemeToggle />
       <SignedOut>
         <SignInButton>

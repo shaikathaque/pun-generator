@@ -1,14 +1,14 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getCurrentUsername } from '@/app/actions';
+import { getCurrentUser } from '@/app/actions';
 import { ThemeToggle } from './themeToggle';
 import { Button } from './ui/button';
 import MainNav from './mainNav';
 import MobileNav from './mobileNav';
 
 export default async function Header() {
-  const username = await getCurrentUsername();
+  const user = await getCurrentUser();
   return (
     <nav className="flex h-16 items-center border-b-2 px-5">
       {/* Top left branding */}
@@ -18,8 +18,8 @@ export default async function Header() {
       </Link>
 
       {/* Top right user nav */}
-      <MainNav />
-      <MobileNav />
+      <MainNav user={user} />
+      <MobileNav username={user?.username} />
     </nav>
   );
 }
