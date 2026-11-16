@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     'Privacy policy for the Pun Generator mobile app for iOS and Android.',
 };
 
-const CONTACT_EMAIL = 'support@hawkapps.io';
+const CONTACT_EMAIL = 'shaikat@hawkapps.io';
 const EFFECTIVE_DATE = '15 November 2026';
 
 export default function PrivacyPage() {
